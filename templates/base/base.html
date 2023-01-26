@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="" href="{{ url_for('static', path='/bootstrap/css/bootstrap.css') }}">
+    <script src="{{ url_for('static', path='/bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', path='/jquery/jquery-3.6.3.min.js') }}"></script>
+    <title>Главная</title>
+</head>
+<body>
+    {% include "base/header.html" %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
