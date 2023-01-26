@@ -6,18 +6,21 @@ from fastapi_csrf_protect import CsrfProtect
 from starlette.requests import Request
 from starlette.responses import FileResponse
 
+import settings
 from settings import templates
 from .logic import excel_files_handler, zipfiles
 from .exceptions import EmptyDirectory, ForbiddenExtention, EmptyDateTime
 
 okr_router = APIRouter()
 
+app_version = settings.APP_VERSION
+
 
 @okr_router.get("/okr/excel_load_form")
 async def excel_load_form(request: Request, csrf_protect: CsrfProtect = Depends()):
     csrf_token = csrf_protect.generate_csrf()
     response = templates.TemplateResponse("okr/forms/upload_files.html", {
-        'request': request, 'csrf_token': csrf_token
+        'request': request, 'csrf_token': csrf_token, "app_version": app_version
     })
     return response
 
@@ -44,7 +47,8 @@ async def excel_handler(request: Request, csrf_protect: CsrfProtect = Depends())
             raise EmptyDateTime("Не введен период.")
 
         paths = []
-        if all([file for file in files if file.filename.split(".")[1] != "xls"]):
+
+        if not all([file for file in files if file.filename.split(".")[1] == "xls"]):
             raise ForbiddenExtention("Не xls файлы не обрабатываются.")
 
         for file in files:
@@ -64,12 +68,12 @@ async def excel_handler(request: Request, csrf_protect: CsrfProtect = Depends())
         await excel_files_handler(paths, current_period=dt)
 
         response = templates.TemplateResponse("okr/forms/download.html", {
-            'request': request, 'csrf_token': csrf_token
+            'request': request, 'csrf_token': csrf_token, "app_version": app_version
         })
         return response
     except (EmptyDirectory, EmptyDateTime, ForbiddenExtention, FileNotFoundError) as e:
         err_response = templates.TemplateResponse("okr/forms/upload_files.html", {
-            'request': request, 'csrf_token': csrf_token, "err": e
+            'request': request, 'csrf_token': csrf_token, "err": e, "app_version": app_version
         })
         return err_response
 
@@ -89,9 +93,3 @@ async def download(request: Request):
     await zipfiles(zipname=zippath, files=files)
 
     return FileResponse(path=zippath, filename="Result.zip", media_type="application/octet-stream")
-
-
-
-
-
-

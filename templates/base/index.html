@@ -2,12 +2,8 @@
 
 {% block content %}
 <section class="container-fluid centered w-100 pt-3">
-    <div class="">
-        <ul>
-            <li><a href="/okr/excel_load_form/">ОКР</a></li>
-            <li><a href="">ЦУ МСК</a></li>
-        </ul>
-    </div>
+    {% block site_map %}
+    {% endblock %}
     {% block form %}
     {% endblock %}
     {% block download %}

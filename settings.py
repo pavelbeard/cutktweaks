@@ -15,4 +15,6 @@ def get_csrf_config():
     return CSRFSettings()
 
 
+APP_VERSION = "v1.3"
+
 

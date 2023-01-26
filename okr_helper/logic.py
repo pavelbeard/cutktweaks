@@ -42,7 +42,7 @@ async def handle(file: str, current_period: str):
                 try:
                     result.append(df.iloc[tmp[0]:tmp[-1] + 2])
                     tmp = []
-                except IndexError:
+                except IndexError:  # если наряд состоит из одной строки
                     pass
 
         # фильтруем:
@@ -61,7 +61,6 @@ async def handle(file: str, current_period: str):
         df_sheet_empty = pd.DataFrame()
         df_sheet_empty.to_excel(writer, sheet_name="Результаты")
 
-        workbook = writer.book
         worksheet = writer.sheets["Результаты"]
 
         # считаем наряды
@@ -76,19 +75,6 @@ async def handle(file: str, current_period: str):
         df.to_excel(writer, sheet_name='Исходная таблица')
 
         writer.save()
-
-        # wb = xlrd.open_workbook_xls(file, formatting_info=True)
-        # ws = wb.sheet_by_name('EXCELTABLESHEET1')
-        # col = 1
-        #
-        # ws.cell(0, col).value = "Количество нарядов:"
-        # ws.cell(1, col).value = len(count)
-        # ws.cell(2, col).value = "".join([f"{n}\n" for n, d in count])
-        # # ws.put_cell(rowx=0, colx=col, value="Количество нарядов:", ctype=xlrd.XL_CELL_TEXT,
-        # #             xf_index=ws.cell_xf_index(1, col))
-        # # ws.put_cell(rowx=1, colx=col, value=len(count), ctype=xlrd.XL_CELL_NUMBER, xf_index=ws.cell_xf_index(2, col))
-        #
-        # save(wb, os.path.join("download", re.split(r"/|\\", file)[-1]))
 
         return True
     except (UnicodeEncodeError, ValueError) as e:

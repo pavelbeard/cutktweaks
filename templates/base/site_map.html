@@ -1,0 +1,23 @@
+{% extends "base/index.html" %}
+
+{% block site_map %}
+    <div class="container-fluid">
+        <h5 class="text-bg-info rounded p-3">Навигация по сайту:</h5>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/okr/excel_load_form/">ОКР</a></li>
+            <li class="list-group-item"><a href="">ЦУ МСК</a></li>
+        </ul>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $(".list-group-item").hover(function (e) {
+                e.stopPropagation();
+                $(this).addClass('active');
+            }, function (e) {
+                e.stopPropagation();
+                $(this).removeClass('active');
+            });
+        });
+    </script>
+{% endblock %}
