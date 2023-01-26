@@ -5,7 +5,6 @@ from fastapi import APIRouter, Depends
 from fastapi_csrf_protect import CsrfProtect
 from starlette.requests import Request
 from starlette.responses import FileResponse
-
 import settings
 from settings import templates
 from .logic import excel_files_handler, zipfiles
