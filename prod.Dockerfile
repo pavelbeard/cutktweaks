@@ -1,4 +1,4 @@
-FROM cutktweaks:v1.3
+FROM cutktweaks:1.3
 
 WORKDIR /home/cutktweaks-app/app
 
