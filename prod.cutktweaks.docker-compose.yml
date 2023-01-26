@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  okr:
+    build:
+      context: cutktweaks
+      dockerfile: prod.Dockerfile
+    container_name: cutktweaks
+    ports:
+      - "10800:8000"
+    
+  
