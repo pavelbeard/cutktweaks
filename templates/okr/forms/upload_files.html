@@ -3,7 +3,7 @@
 {% block form %}
     <div class="container-fluid bg-info rounded pt-3 pb-3">
         <form method="post" action="/okr/excel_handler" enctype="multipart/form-data">
-            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+{#            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">#}
 
             <div class="mb-3">
                 <label for="datetime" class="form-label">Выбрать период:</label>

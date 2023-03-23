@@ -49,9 +49,7 @@ async def handle(file: str, current_period: str):
         count = []
         for df1 in result:
             tmp_df = df1[['Конец этапа', 'Этап']] \
-                [((df1['Этап'].str.contains('ЦЭМТС', regex=True)) & (
-                        df1['Конец этапа'] > pd.to_datetime(current_period))) & \
-                 (df1['Этап'].str.contains('АТС\s(ЦТС)|ЦЭМТС', regex=True))]
+                [((df1['Этап'].str.contains('ЦЭМТС', regex=True)) & (df1['Конец этапа'] > pd.to_datetime(current_period))) & (df1['Этап'].str.contains('АТС\s(ЦТС)|ЦЭМТС', regex=True))]
             if len(tmp_df) > 0:
                 count.append((df1['Номер наряда'].unique()[0], df1[['Номер наряда', 'Конец этапа', 'Этап']]))
 

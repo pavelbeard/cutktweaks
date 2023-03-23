@@ -2,7 +2,7 @@
 
 {% block download %}
     <form method="get" action="/okr/download">
-        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+{#        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">#}
         <button type="submit" class="btn btn-primary">Загрузить!</button>
     </form>
 {% endblock %}
